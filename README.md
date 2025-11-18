@@ -9,7 +9,7 @@ This repository contains my submission for Assignment 3 of CS258.
 - `result1.txt`: Output from running `exp1.py` with successful pings and routing
 - `result2.txt`: Output from `exp2.py`, including manual flow rules, flow table dump, and ping results
 
-## 📝 Notes
+## Notes
 
 - `exp1.py` creates a routed topology with 3 hosts and 2 routers, using static routes.
 - `exp2.py` builds a 2-switch SDN network. OpenFlow rules were added manually from a second terminal using `ovs-ofctl`, as required.
