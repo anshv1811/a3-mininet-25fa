@@ -1,0 +1,106 @@
+			# Experiment 2 Results Summary
+
+h1 → h3:  SUCCESS  
+h2 → h3:  BLOCKED (as expected by flow rule)
+
+# Flow rules added (from second terminal):
+	sudo ovs-ofctl add-flow s1 in_port=1,actions=output:3
+	sudo ovs-ofctl add-flow s1 in_port=3,actions=output:1
+	sudo ovs-ofctl add-flow s1 in_port=2,actions=drop
+	sudo ovs-ofctl add-flow s2 in_port=1,actions=output:2
+	sudo ovs-ofctl add-flow s2 in_port=2,actions=output:1
+
+
+			# In the first terminal
+
+ansh@ansh-VirtualBox:~/mininet_hw$ sudo python3 ~/mininet_hw/exp2.py
+*** Creating network
+*** Adding hosts:
+h1 h2 h3 
+*** Adding switches:
+s1 s2 
+*** Adding links:
+(h1, s1) (h2, s1) (s1, s2) (s2, h3) 
+*** Configuring hosts
+h1 h2 h3 
+*** Starting controller
+
+*** Starting 2 switches
+s1 s2 ...
+*** Assigning IPs...
+*** Starting CLI:
+mininet> h1 ping -c 1 h3 
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=2.50 ms
+
+--- 10.0.0.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2.500/2.500/2.500/0.000 ms
+mininet> h2 ping -c 1 h3 
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+From 10.0.0.2 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.3 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+mininet> exit
+*** Stopping 0 controllers
+
+*** Stopping 4 links
+....
+*** Stopping 2 switches
+s1 s2 
+*** Stopping 3 hosts
+h1 h2 h3 
+*** Done
+ansh@ansh-VirtualBox:~/mininet_hw$ 
+
+
+			#In the second terminal
+			
+ansh@ansh-VirtualBox:~$ sudo ovs-ofctl del-flows s1
+sudo ovs-ofctl del-flows s2
+
+sudo ovs-ofctl add-flow s1 in_port=1,actions=output:3
+sudo ovs-ofctl add-flow s1 in_port=3,actions=output:1
+sudo ovs-ofctl add-flow s1 in_port=2,actions=drop
+
+sudo ovs-ofctl add-flow s2 in_port=1,actions=output:2
+sudo ovs-ofctl add-flow s2 in_port=2,actions=output:1
+[sudo] password for ansh: 
+ansh@ansh-VirtualBox:~$ sudo ovs-ofctl show s1
+sudo ovs-ofctl dump-flows s1
+sudo ovs-ofctl dump-flows s2
+ovs-ofctl: s1 is not a bridge or a socket
+ovs-ofctl: s1 is not a bridge or a socket
+ovs-ofctl: s2 is not a bridge or a socket
+ansh@ansh-VirtualBox:~$ sudo ovs-ofctl show s1
+sudo ovs-ofctl dump-flows s1
+sudo ovs-ofctl dump-flows s2
+OFPT_FEATURES_REPLY (xid=0x2): dpid:0000000000000001
+n_tables:254, n_buffers:0
+capabilities: FLOW_STATS TABLE_STATS PORT_STATS QUEUE_STATS ARP_MATCH_IP
+actions: output enqueue set_vlan_vid set_vlan_pcp strip_vlan mod_dl_src mod_dl_dst mod_nw_src mod_nw_dst mod_nw_tos mod_tp_src mod_tp_dst
+ 1(s1-eth1): addr:76:f8:68:92:7c:b8
+     config:     0
+     state:      0
+     current:    10GB-FD COPPER
+     speed: 10000 Mbps now, 0 Mbps max
+ 2(s1-eth2): addr:32:f8:aa:f4:c6:de
+     config:     0
+     state:      0
+     current:    10GB-FD COPPER
+     speed: 10000 Mbps now, 0 Mbps max
+ 3(s1-eth3): addr:f6:ad:ac:d4:a3:24
+     config:     0
+     state:      0
+     current:    10GB-FD COPPER
+     speed: 10000 Mbps now, 0 Mbps max
+ LOCAL(s1): addr:2e:35:a9:ce:77:4c
+     config:     PORT_DOWN
+     state:      LINK_DOWN
+     speed: 0 Mbps now, 0 Mbps max
+OFPT_GET_CONFIG_REPLY (xid=0x4): frags=normal miss_send_len=0
+ansh@ansh-VirtualBox:~$ 
+
+

@@ -1,0 +1,66 @@
+ansh@ansh-VirtualBox:~/mininet_hw$ sudo python3 ~/mininet_hw/exp1.py 
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+h1 h2 h3 r1 r2 
+*** Adding switches:
+
+*** Adding links:
+(h1, r1) (r1, h2) (r1, r2) (r2, h3) 
+*** Configuring hosts
+h1 h2 h3 r1 r2 
+*** Starting controller
+c0 
+*** Starting 0 switches
+
+*** Ping: h1 -> h3
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=62 time=0.129 ms
+
+--- 10.0.2.2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.129/0.129/0.129/0.000 ms
+
+*** Ping: h2 -> h3
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=62 time=0.168 ms
+
+--- 10.0.2.2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.168/0.168/0.168/0.000 ms
+
+*** Ping: h3 -> h1
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=62 time=0.043 ms
+
+--- 10.0.0.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.043/0.043/0.043/0.000 ms
+
+*** Ping: h3 -> h2
+PING 10.0.3.2 (10.0.3.2) 56(84) bytes of data.
+64 bytes from 10.0.3.2: icmp_seq=1 ttl=62 time=0.040 ms
+
+--- 10.0.3.2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.040/0.040/0.040/0.000 ms
+
+*** Ping: testing ping reachability
+h1 -> h2 h3 r1 r2 
+h2 -> h1 h3 r1 r2 
+h3 -> h1 h2 r1 r2 
+r1 -> h1 h2 h3 r2 
+r2 -> h1 h2 h3 r1 
+*** Results: 0% dropped (20/20 received)
+*** Stopping 1 controllers
+c0 
+*** Stopping 4 links
+....
+*** Stopping 0 switches
+
+*** Stopping 5 hosts
+h1 h2 h3 r1 r2 
+*** Done
+ansh@ansh-VirtualBox:~/mininet_hw$ 
+
+
